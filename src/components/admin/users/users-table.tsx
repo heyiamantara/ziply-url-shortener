@@ -72,9 +72,7 @@ export function UsersTable({
   const preserveParams = () => {
     if (typeof window === "undefined") return "";
 
-    const url = new URL(window.location.href);
-    const params = new URLSearchParams(url.search);
-    let paramString = "";
+    const paramString = "";
 
     // Preserve any additional parameters if needed
     // For example, if you have a filter parameter:

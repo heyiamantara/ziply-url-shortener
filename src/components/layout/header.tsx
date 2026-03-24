@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -22,7 +21,7 @@ import {
 import { ThemeToggle } from "../ui/theme-toggle";
 
 export function Header() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const isAuthenticated = status === "authenticated";
 
   return (
