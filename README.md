@@ -1,4 +1,4 @@
-# 🚀 Ziply — AI-Powered URL Shortener
+#  🔗 Ziply (AI-Powered URL Shortener)
 
 **Ziply** is a modern, high-performance URL shortener built with **Next.js 15**, **Drizzle ORM**, and **Google Gemini AI**.  
 It goes beyond traditional link shorteners by offering **real-time safety analysis** and **detailed risk insights** for every URL you create.
