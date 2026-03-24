@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   description: "Ziply - Shorten your links",
 };
 
+import { Header } from "@/components/layout/header";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,8 +35,9 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <AuthProvider>
+            <Header />
+            <main className="min-h-screen flex flex-col">{children}</main>
             <ToastProvider />
-            {children}
           </AuthProvider>
         </ThemeProvider>
       </body>
