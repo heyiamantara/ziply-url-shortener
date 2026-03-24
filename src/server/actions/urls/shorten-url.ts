@@ -37,6 +37,7 @@ export async function shortenUrl(formData: FormData): Promise<
 
     const url = formData.get("url") as string;
     const customCode = formData.get("customCode") as string;
+    const forceShorten = formData.get("forceShorten") === "true";
 
     const validatedFields = shortenUrlSchema.safeParse({
       url,
@@ -66,11 +67,13 @@ export async function shortenUrl(formData: FormData): Promise<
       if (
         safetyCheck.data.category === "malicious" &&
         safetyCheck.data.confidence > 0.7 &&
-        session?.user?.role !== "admin"
+        session?.user?.role !== "admin" &&
+        !forceShorten
       ) {
         return {
           success: false,
-          error: "This URL is flagged as malicious",
+          error:
+            "This URL is flagged as malicious. Click 'Shorten anyway' to continue with review.",
         };
       }
     }

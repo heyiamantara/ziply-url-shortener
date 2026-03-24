@@ -49,7 +49,7 @@ export function UrlShortenerForm() {
     },
   });
 
-  const onSubmit = async (data: UrlFormData) => {
+  const submitShorten = async (data: UrlFormData, forceShorten = false) => {
     setIsLoading(true);
     setError(null);
     setShortUrl(null);
@@ -64,9 +64,19 @@ export function UrlShortenerForm() {
       if (data.customCode && data.customCode.trim() !== "") {
         formData.append("customCode", data.customCode.trim());
       }
+      if (forceShorten) {
+        formData.append("forceShorten", "true");
+      }
 
       const response = await shortenUrl(formData);
-      if (response.success && response.data) {
+      if (!response.success) {
+        const errorMessage = response.error || "Failed to shorten URL";
+        setError(errorMessage);
+        toast.error(errorMessage);
+        return;
+      }
+
+      if (response.data) {
         setShortUrl(response.data.shortUrl);
         // Extract the short code from the short URL
         const shortCodeMatch = response.data.shortUrl.match(/\/r\/([^/]+)$/);
@@ -102,6 +112,12 @@ export function UrlShortenerForm() {
     } finally {
       setIsLoading(false);
     }
+  };
+  const onSubmit = async (data: UrlFormData) => submitShorten(data, false);
+
+  const handleShortenAnyway = async () => {
+    const values = form.getValues();
+    await submitShorten(values, true);
   };
 
   const copyToClipboard = async () => {
@@ -185,7 +201,20 @@ export function UrlShortenerForm() {
 
             {error && (
               <div className="p-3 bg-destructive/10 text-destructive rounded-md text-sm">
-                {error}
+                <div className="flex items-center justify-between gap-3">
+                  <p>{error}</p>
+                  {error.toLowerCase().includes("flagged as malicious") && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={handleShortenAnyway}
+                      disabled={isLoading}
+                    >
+                      Shorten anyway
+                    </Button>
+                  )}
+                </div>
               </div>
             )}
 

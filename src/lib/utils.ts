@@ -16,7 +16,7 @@ export function isValidUrl(url:string):boolean {
 }
 
 export function ensureHttps(url:string):string {
-  if(!url.startsWith("https://") && !url.startsWith("https://")) {
+  if(!url.startsWith("https://") && !url.startsWith("http://")) {
     return `https://${url}`
   }
 
