@@ -4,7 +4,6 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import {
-  BarChart3Icon,
   LayoutDashboard,
   LogIn,
   LogOut,
@@ -38,23 +37,13 @@ export function Header() {
           {isAuthenticated ? (
             <>
               <Button variant={"ghost"} size={"sm"} asChild>
-                <Link href={"/stats"} className="flex items-center gap-1">
-                  <BarChart3Icon className="size-4" />
-                  Stats
-                </Link>
-              </Button>
-              <Button variant={"ghost"} size={"sm"} asChild>
                 <Link href={"/dashboard"} className="flex items-center gap-1">
                   <LayoutDashboard className="size-4" />
                   Dashboard
                 </Link>
               </Button>
-
               <Button variant={"ghost"} size={"sm"} asChild>
-                <Link
-                  href={"/dashboard/stats"}
-                  className="flex items-center gap-1"
-                >
+                <Link href={"/dashboard/stats"} className="flex items-center gap-1">
                   <LayoutDashboard className="size-4" />
                   My Stats
                 </Link>
@@ -103,15 +92,6 @@ export function Header() {
                   <>
                     <Button variant={"ghost"} size={"sm"} asChild>
                       <Link
-                        href={"/stats"}
-                        className="flex items-center gap-2 justify-start w-full"
-                      >
-                        <BarChart3Icon className="size-4" />
-                        Stats
-                      </Link>
-                    </Button>
-                    <Button variant={"ghost"} size={"sm"} asChild>
-                      <Link
                         href={"/dashboard"}
                         className="flex items-center gap-2 justify-start w-full"
                       >
@@ -119,7 +99,6 @@ export function Header() {
                         Dashboard
                       </Link>
                     </Button>
-
                     <Button variant={"ghost"} size={"sm"} asChild>
                       <Link
                         href={"/dashboard/stats"}

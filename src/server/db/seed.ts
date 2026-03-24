@@ -4,21 +4,17 @@ import { nanoid } from "nanoid";
 import { randomUUID } from "crypto";
 import { hash } from "bcryptjs";
 
-/**
- * Seed the database with test data
- */
 export async function seed() {
   console.log("🌱 Seeding database...");
 
   try {
-    // Create test users
     const testUsers = [
       {
         id: randomUUID(),
         name: "Test User",
         email: "test@example.com",
         password: await hash("password123", 10),
-        role: userRoleEnum.enumValues[0], // "user"
+        role: userRoleEnum.enumValues[0],
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -27,7 +23,7 @@ export async function seed() {
         name: "Demo User",
         email: "demo@example.com",
         password: await hash("demo123", 10),
-        role: userRoleEnum.enumValues[0], // "user"
+        role: userRoleEnum.enumValues[0],
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -36,7 +32,7 @@ export async function seed() {
         name: "Admin User",
         email: "admin@example.com",
         password: await hash("admin123", 10),
-        role: userRoleEnum.enumValues[1], // "admin"
+        role: userRoleEnum.enumValues[1],
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -44,7 +40,6 @@ export async function seed() {
 
     console.log("👤 Creating test users...");
 
-    // Insert users one by one to handle potential duplicates
     for (const user of testUsers) {
       try {
         await db.insert(users).values(user).onConflictDoNothing();
@@ -54,7 +49,6 @@ export async function seed() {
       }
     }
 
-    // Get the inserted users to use their IDs
     const insertedUsers = await db.query.users.findMany({
       where: (users, { eq, or }) =>
         or(
@@ -68,13 +62,11 @@ export async function seed() {
       throw new Error("Failed to retrieve inserted users");
     }
 
-    // Create test URLs
     const testUrls = [
-      // URLs for the first user
       {
         originalUrl: "https://github.com",
         shortCode: "github",
-        createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
+        createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
         updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
         clicks: 42,
         userId: insertedUsers[0].id,
@@ -82,7 +74,7 @@ export async function seed() {
       {
         originalUrl: "https://nextjs.org",
         shortCode: "nextjs",
-        createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
+        createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
         updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
         clicks: 27,
         userId: insertedUsers[0].id,
@@ -90,17 +82,15 @@ export async function seed() {
       {
         originalUrl: "https://tailwindcss.com",
         shortCode: "tailwind",
-        createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
+        createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
         updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
         clicks: 15,
         userId: insertedUsers[0].id,
       },
-
-      // URLs for the second user
       {
         originalUrl: "https://react.dev",
         shortCode: "react",
-        createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000), // 6 days ago
+        createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
         updatedAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
         clicks: 31,
         userId: insertedUsers[1].id,
@@ -108,17 +98,15 @@ export async function seed() {
       {
         originalUrl: "https://typescriptlang.org",
         shortCode: "typescript",
-        createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000), // 4 days ago
+        createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
         updatedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
         clicks: 19,
         userId: insertedUsers[1].id,
       },
-
-      // URLs without a user (anonymous)
       {
         originalUrl: "https://example.com",
         shortCode: "example",
-        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
         updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
         clicks: 8,
         userId: null,
@@ -126,7 +114,7 @@ export async function seed() {
       {
         originalUrl: "https://google.com",
         shortCode: "google",
-        createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+        createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
         updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
         clicks: 53,
         userId: null,
@@ -135,7 +123,6 @@ export async function seed() {
 
     console.log("🔗 Creating test URLs...");
 
-    // Insert URLs one by one to handle potential duplicates
     for (const url of testUrls) {
       try {
         await db.insert(urls).values(url).onConflictDoNothing();
@@ -145,7 +132,6 @@ export async function seed() {
       }
     }
 
-    // Generate some random URLs with random short codes
     console.log("🎲 Creating random URLs...");
 
     for (let i = 0; i < 10; i++) {

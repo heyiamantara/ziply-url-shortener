@@ -77,7 +77,6 @@ export async function shortenUrl(formData: FormData): Promise<
 
     const shortCode = validatedFields.data.customCode || nanoid(6);
 
-    // check if the short code already exists
     const existingUrl = await db.query.urls.findFirst({
       where: (urls, { eq }) => eq(urls.shortCode, shortCode),
     });

@@ -52,7 +52,6 @@ export async function getAllUsers(
         role: true,
         createdAt: true,
         image: true,
-        // exculde password and other sensitive data
         password: false,
         emailVerified: false,
         updatedAt: false,

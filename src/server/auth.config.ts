@@ -1,6 +1,4 @@
 import { DefaultSession, NextAuthConfig } from "next-auth";
-import GitHub from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
@@ -9,7 +7,6 @@ import bcrypt from "bcryptjs";
 import "next-auth/jwt";
 import { db } from "./db";
 
-// extend the types to include role
 declare module "next-auth" {
   interface User {
     role?: "user" | "admin";
@@ -74,14 +71,6 @@ export const authConfig: NextAuthConfig = {
   },
 
   providers: [
-    GitHub({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    }),
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -111,7 +100,6 @@ export const authConfig: NextAuthConfig = {
 
         if (!user) return null;
 
-        //check if password is correct
         const passwordsMatch = await bcrypt.compare(
           password,
           user.password || ""

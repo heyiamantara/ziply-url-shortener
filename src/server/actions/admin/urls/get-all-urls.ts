@@ -54,7 +54,6 @@ export async function getAllUrls(
       with: { user: true },
     });
 
-    // transoform data to include user info
     let transformedUrls: UrlWithUser[] = allUrls.map((url) => ({
       id: url.id,
       originalUrl: url.originalUrl,
@@ -68,7 +67,6 @@ export async function getAllUrls(
       flagReason: url.flagReason,
     }));
 
-    // apply search filter
     if (search) {
       transformedUrls = transformedUrls.filter(
         (url) =>
@@ -80,7 +78,6 @@ export async function getAllUrls(
       );
     }
 
-    // apply filter
     if (filter !== "all") {
       transformedUrls = transformedUrls.filter((url) => {
         if (filter === "flagged") {
@@ -120,14 +117,12 @@ export async function getAllUrls(
 
     const total = transformedUrls.length;
 
-    // apply sorting
     if (sortBy && sortOrder) {
       transformedUrls.sort((a, b) => {
         let valueA: string | number | boolean | Date | null;
         let valueB: string | number | boolean | Date | null;
 
-        // handle sorting by user name
-        if (sortBy === "userName") {
+      if (sortBy === "userName") {
           valueA = a.userName || a.userEmail || "";
           valueB = b.userName || b.userEmail || "";
         } else {
@@ -135,11 +130,9 @@ export async function getAllUrls(
           valueB = b[sortBy];
         }
 
-        // handle null values
         if (valueA === null) valueA = "";
         if (valueB === null) valueB = "";
 
-        // sort in ascending or descending order
         if (sortOrder === "asc") {
           return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
         } else {
@@ -148,7 +141,6 @@ export async function getAllUrls(
       });
     }
 
-    // apply pagination
     const paginatedUrls = transformedUrls.slice(offset, offset + limit);
 
     return {

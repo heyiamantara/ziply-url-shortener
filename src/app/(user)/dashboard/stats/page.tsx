@@ -177,13 +177,13 @@ export default function StatsPage() {
           <CardDescription>Top 5 URLs with most clicks</CardDescription>
         </CardHeader>
         <CardContent>
-          {barChartData.length > 0 ? (
-            <Tabs defaultValue="bar" className="w-full">
-              <TabsList className="mb-4">
-                <TabsTrigger value="bar">Bar Chart</TabsTrigger>
-                <TabsTrigger value="pie">Pie Chart</TabsTrigger>
-              </TabsList>
-              <TabsContent value="bar" className="min-h-[400px] mt-4">
+          <Tabs defaultValue="bar" className="w-full">
+            <TabsList className="mb-4">
+              <TabsTrigger value="bar">Bar Chart</TabsTrigger>
+              <TabsTrigger value="pie">Pie Chart</TabsTrigger>
+            </TabsList>
+            <TabsContent value="bar" className="min-h-[400px] mt-4">
+              {barChartData.length > 0 ? (
                 <Card>
                   <CardHeader>
                     <CardTitle>URL Perfomance</CardTitle>
@@ -241,8 +241,15 @@ export default function StatsPage() {
                     </div>
                   </CardFooter>
                 </Card>
-              </TabsContent>
-              <TabsContent value="pie" className="min-h-[400px] mt-4">
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  No URL data available yet. Create some short URLs to see the
+                  bar chart.
+                </div>
+              )}
+            </TabsContent>
+            <TabsContent value="pie" className="min-h-[400px] mt-4">
+              {barChartData.length > 0 ? (
                 <Card className="flex flex-col">
                   <CardHeader className="items-center pb-0">
                     <CardTitle>URL Clicks Distrubtion</CardTitle>
@@ -329,14 +336,14 @@ export default function StatsPage() {
                     </div>
                   </CardFooter>
                 </Card>
-              </TabsContent>
-            </Tabs>
-          ) : (
-            <div className="text-center py-8 text-muted-foreground">
-              No URL data available yet. Create some short URLs to see the
-              stats.
-            </div>
-          )}
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  No URL data available yet. Create some short URLs to see the
+                  pie chart.
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
     </>

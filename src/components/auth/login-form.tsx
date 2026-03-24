@@ -88,57 +88,11 @@ export function LoginForm() {
     }
   }
 
-  const handleGithubSignIn = async () => {
-    setIsLoading(true);
-    try {
-      await signIn("github", { callbackUrl: "/dashboard" });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    try {
-      await signIn("google", { callbackUrl: "/dashboard" });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-2">
-        <Button
-          variant={"outline"}
-          disabled={isLoading}
-          onClick={handleGithubSignIn}
-        >
-          Sign in with GitHub
-        </Button>
-        <Button
-          variant={"outline"}
-          disabled={isLoading}
-          onClick={handleGoogleSignIn}
-        >
-          Sign in with Google
-        </Button>
-      </div>
 
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

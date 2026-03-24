@@ -25,7 +25,6 @@ export async function getUserUrls(userId: string): Promise<
       };
     }
 
-    // Get all URLs for the user
     const userUrls = await db.query.urls.findMany({
       where: (urls, { eq }) => eq(urls.userId, userId),
       orderBy: (urls, { desc }) => [desc(urls.createdAt)],

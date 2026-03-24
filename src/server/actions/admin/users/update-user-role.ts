@@ -11,7 +11,6 @@ export async function updateUserRole(
   role: "user" | "admin"
 ): Promise<ApiResponse<null>> {
   try {
-    // Verify authentication and admin role
     const session = await auth();
     if (!session?.user) {
       return {
@@ -27,7 +26,6 @@ export async function updateUserRole(
       };
     }
 
-    // Prevent changing own role
     if (session.user.id === userId) {
       return {
         success: false,

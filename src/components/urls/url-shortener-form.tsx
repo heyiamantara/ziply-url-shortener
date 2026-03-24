@@ -123,8 +123,8 @@ export function UrlShortenerForm() {
     <>
       <div className="w-full max-w-2xl mx-auto">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <div className="flex flex-col sm:flex-row gap-2">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-3">
+            <div className="flex items-center gap-3">
               <FormField
                 control={form.control}
                 name="url"
@@ -135,13 +135,14 @@ export function UrlShortenerForm() {
                         placeholder="Paste your long URL here"
                         {...field}
                         disabled={false}
+                        className="h-12 rounded-lg transition-all duration-200 focus-visible:ring-2"
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isLoading}>
+              <Button type="submit" disabled={isLoading} className="shrink-0 h-12 px-6 rounded-lg transition-all duration-200">
                 {isLoading ? (
                   <>
                     <span className="mr-2 size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
@@ -157,21 +158,23 @@ export function UrlShortenerForm() {
               control={form.control}
               name="customCode"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mt-3">
                   <FormControl>
-                    <div className="flex items-center">
-                      <span className="text-sm text-muted-foreground mr-2">
+                    <div className="flex items-center gap-3">
+                      <div className="flex-1 h-12 rounded-lg border bg-muted/40 px-4 flex items-center">
+                        <span className="text-sm text-muted-foreground truncate">
                         {process.env.NEXT_PUBLIC_APP_URL ||
                           (typeof window !== "undefined" ? window.location.origin : "")}
                         /r/
-                      </span>
+                        </span>
+                      </div>
                       <Input
                         placeholder="Custom code (optional)"
                         {...field}
                         value={field.value || ""}
                         onChange={(e) => field.onChange(e.target.value || "")}
                         disabled={isLoading}
-                        className="flex-1"
+                        className="flex-1 h-12 rounded-lg transition-all duration-200 focus-visible:ring-2"
                       />
                     </div>
                   </FormControl>
