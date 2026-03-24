@@ -34,15 +34,15 @@ export function Header() {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-2">
           <ThemeToggle />
-          <Button variant={"ghost"} size={"sm"} asChild>
-            <Link href={"/stats"} className="flex items-center gap-1">
-              <BarChart3Icon className="size-4" />
-              Stats
-            </Link>
-          </Button>
 
           {isAuthenticated ? (
             <>
+              <Button variant={"ghost"} size={"sm"} asChild>
+                <Link href={"/stats"} className="flex items-center gap-1">
+                  <BarChart3Icon className="size-4" />
+                  Stats
+                </Link>
+              </Button>
               <Button variant={"ghost"} size={"sm"} asChild>
                 <Link href={"/dashboard"} className="flex items-center gap-1">
                   <LayoutDashboard className="size-4" />
@@ -99,18 +99,17 @@ export function Header() {
                 <SheetTitle>Navigation Menu</SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-4 mt-6">
-                <Button variant={"ghost"} size={"sm"} asChild>
-                  <Link
-                    href={"/stats"}
-                    className="flex items-center gap-2 justify-start w-full"
-                  >
-                    <BarChart3Icon className="size-4" />
-                    Stats
-                  </Link>
-                </Button>
-
                 {isAuthenticated ? (
                   <>
+                    <Button variant={"ghost"} size={"sm"} asChild>
+                      <Link
+                        href={"/stats"}
+                        className="flex items-center gap-2 justify-start w-full"
+                      >
+                        <BarChart3Icon className="size-4" />
+                        Stats
+                      </Link>
+                    </Button>
                     <Button variant={"ghost"} size={"sm"} asChild>
                       <Link
                         href={"/dashboard"}
