@@ -50,7 +50,7 @@ export function EditUrlModal({
 }: EditUrlModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || (typeof window !== "undefined" ? window.location.origin : "");
 
   const form = useForm<EditUrlFormData>({
     resolver: zodResolver(editUrlSchema),

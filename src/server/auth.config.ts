@@ -6,7 +6,7 @@ import { z } from "zod";
 import { eq } from "drizzle-orm";
 import { users } from "./db/schema";
 import bcrypt from "bcryptjs";
-
+import "next-auth/jwt";
 import { db } from "./db";
 
 // extend the types to include role

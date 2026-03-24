@@ -162,7 +162,7 @@ export function UrlShortenerForm() {
                     <div className="flex items-center">
                       <span className="text-sm text-muted-foreground mr-2">
                         {process.env.NEXT_PUBLIC_APP_URL ||
-                          window.location.origin}
+                          (typeof window !== "undefined" ? window.location.origin : "")}
                         /r/
                       </span>
                       <Input

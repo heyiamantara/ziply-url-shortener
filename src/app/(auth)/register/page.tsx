@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { RegisterForm } from "@/components/auth/register-form";
 import {
   Card,
@@ -28,7 +29,9 @@ export default function RegisterPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <RegisterForm />
+            <Suspense fallback={<div className="flex justify-center p-4">Loading form...</div>}>
+              <RegisterForm />
+            </Suspense>
           </CardContent>
         </Card>
       </div>
