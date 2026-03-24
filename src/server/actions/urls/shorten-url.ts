@@ -27,7 +27,7 @@ export async function shortenUrl(formData: FormData): Promise<
   ApiResponse<{
     shortUrl: string;
     flagged: boolean;
-    flagReason?: string | null;
+    reason?: string | null;
     message?: string;
   }>
 > {
@@ -58,11 +58,11 @@ export async function shortenUrl(formData: FormData): Promise<
 
     const safetyCheck = await checkUrlSafety(originalUrl);
     let flagged = false;
-    let flagReason = null;
+    let reason = null;
 
     if (safetyCheck.success && safetyCheck.data) {
       flagged = safetyCheck.data.flagged;
-      flagReason = safetyCheck.data.reason;
+      reason = safetyCheck.data.reason;
 
       if (
         safetyCheck.data.category === "malicious" &&
@@ -101,7 +101,7 @@ export async function shortenUrl(formData: FormData): Promise<
       updatedAt: new Date(),
       userId: userId || null,
       flagged,
-      flagReason,
+      flagReason: reason,
     });
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
@@ -114,7 +114,7 @@ export async function shortenUrl(formData: FormData): Promise<
       data: {
         shortUrl,
         flagged,
-        flagReason,
+        reason,
         message: flagged
           ? "This URL has been flagged for review by our safety system. It may be temporarily limited until approved by an administrator."
           : undefined,

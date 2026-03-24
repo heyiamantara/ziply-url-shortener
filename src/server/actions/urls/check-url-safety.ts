@@ -45,7 +45,8 @@ async function generateSafetyWithGemini(url: string, apiKey: string) {
     {
       "isSafe": boolean,
       "flagged": boolean,
-      "reason": string or null,
+      "reason": "A short (3-5 word) summary of the main safety concern or null",
+      "detailedAnalysis": "A comprehensive 2-3 sentence explanation of why this URL was flagged, citing specific suspicious characteristics, or null",
       "category": "safe" | "suspicious" | "malicious" | "inappropriate" | "unknown",
       "confidence": number between 0 and 1
     }
@@ -71,7 +72,23 @@ async function generateSafetyWithGemini(url: string, apiKey: string) {
           throw new Error("Failed to parse JSON response");
         }
 
-        return JSON.parse(jsonMatch[0]) as UrlSafetyCheck;
+        const json = JSON.parse(jsonMatch[0]) as {
+          isSafe: boolean;
+          flagged: boolean;
+          reason: string | null;
+          detailedAnalysis: string | null;
+          category: "safe" | "suspicious" | "malicious" | "inappropriate" | "unknown";
+          confidence: number;
+        };
+
+        const combinedReason = json.flagged && json.reason && json.detailedAnalysis
+          ? `${json.reason.trim().replace(/\.$/, "")}. ${json.detailedAnalysis.trim().replace(/\.$/, "")}.`
+          : json.reason;
+
+        return {
+          ...json,
+          reason: combinedReason,
+        } as UrlSafetyCheck;
       } catch (error) {
         lastError = error;
         if (attempt === 0 && isRetriableGeminiError(error)) {
@@ -118,20 +135,32 @@ function heuristicSafetyCheck(url: string): UrlSafetyCheck {
   });
 
   if (hasPunycode || hasIpHost) {
+    const analysis = hasPunycode 
+      ? "This URL uses Punycode (international characters) to impersonate a legitimate brand. This is a common technique used in phishing attacks." 
+      : "This URL uses a direct IP address instead of a domain name, which is often used by malicious sites to bypass security filters.";
     return {
       isSafe: false,
       flagged: true,
-      reason: "Potentially deceptive domain format",
+      reason: `Deceptive domain format. ${analysis}`,
       category: "suspicious",
       confidence: 0.7,
     };
   }
 
   if (patternHit || riskyTldHit) {
+    let specificReason = "URL contains common phishing/scam indicators";
+    let analysis = "This URL contains patterns or uses a top-level domain (.click, .zip, etc.) that are frequently associated with phishing, scams, or malicious redirects.";
+    
+    if (riskyTldHit) {
+      const tld = lowerUrl.split('.').pop()?.split('/')[0];
+      specificReason = `Deceptive .${tld} domain`;
+      analysis = `This URL uses a .${tld} domain, which is considered high-risk and frequently used for deceptive content or malware distribution.`;
+    }
+
     return {
       isSafe: false,
       flagged: true,
-      reason: "URL contains common phishing/scam indicators",
+      reason: `${specificReason}. ${analysis}`,
       category: "suspicious",
       confidence: 0.65,
     };

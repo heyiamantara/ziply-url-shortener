@@ -87,12 +87,12 @@ export function UrlShortenerForm() {
         if (response.data.flagged) {
           setFlaggedInfo({
             flagged: response.data.flagged,
-            reason: response.data.flagReason || null,
+            reason: response.data.reason || null,
             message: response.data.message,
           });
 
           toast.warning(response.data.message || "This URL is flagged", {
-            description: response.data.flagReason,
+            description: response.data.reason,
           });
         } else {
           toast.success("URL shortened successfully");
@@ -251,22 +251,26 @@ export function UrlShortenerForm() {
                   </div>
 
                   {flaggedInfo && flaggedInfo.flagged && (
-                    <div className="mt-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md">
+                    <div className="mt-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md text-left">
                       <div className="flex items-start gap-2">
                         <AlertTriangle className="size-5 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
-                        <div>
+                        <div className="space-y-2 min-w-0">
                           <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">
                             This URL has been flagged for review
                           </p>
-                          <p className="text-xs text-yellow-700 dark:text-yellow-400 mt-1">
+                          <p className="text-sm leading-relaxed text-yellow-700 dark:text-yellow-400 break-words">
                             {flaggedInfo.message ||
                               "This URL will be reviewed by an administrator before it becomes fully active."}
                           </p>
                           {flaggedInfo.reason && (
-                            <p className="text-sm mt-2 text-yellow-600 dark:text-yellow-400">
-                              <span className="font-medium">Reason:</span>{" "}
-                              {flaggedInfo.reason || "Unknown reason"}
-                            </p>
+                            <div className="pt-1">
+                              <p className="text-sm font-semibold text-yellow-800 dark:text-yellow-300">
+                                Reason:
+                              </p>
+                              <p className="text-sm leading-relaxed text-yellow-700 dark:text-yellow-400 break-words">
+                                {flaggedInfo.reason || "Unknown reason"}
+                              </p>
+                            </div>
                           )}
                         </div>
                       </div>
