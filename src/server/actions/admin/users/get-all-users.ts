@@ -72,8 +72,8 @@ export async function getAllUsers(
 
     if (sortBy && sortOrder) {
       allUsers.sort((a, b) => {
-        let valueA: any = a[sortBy];
-        let valueB: any = b[sortBy];
+        let valueA = a[sortBy] as string | Date | null;
+        let valueB = b[sortBy] as string | Date | null;
 
         if (valueA === null) valueA = "";
         if (valueB === null) valueB = "";

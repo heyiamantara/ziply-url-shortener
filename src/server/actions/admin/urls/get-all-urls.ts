@@ -123,8 +123,8 @@ export async function getAllUrls(
     // apply sorting
     if (sortBy && sortOrder) {
       transformedUrls.sort((a, b) => {
-        let valueA: any;
-        let valueB: any;
+        let valueA: string | number | boolean | Date | null;
+        let valueB: string | number | boolean | Date | null;
 
         // handle sorting by user name
         if (sortBy === "userName") {

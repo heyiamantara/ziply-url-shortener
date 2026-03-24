@@ -82,7 +82,7 @@ export default function StatsPage() {
 
   // prepare data for the bar chart with numeric values
   const barChartData = useMemo(() => {
-    return topUrls.map((url, index) => ({
+    return topUrls.map((url) => ({
       url: url.shortCode,
       clicks: url.clicks,
       originalUrl: url.originalUrl,

@@ -2,7 +2,7 @@
 
 import { ApiResponse } from "@/lib/types";
 import { ensureHttps, isValidUrl } from "@/lib/utils";
-import { custom, z } from "zod";
+import { z } from "zod";
 import { nanoid } from "nanoid";
 import { db } from "@/server/db";
 import { urls } from "@/server/db/schema";
