@@ -1,51 +1,67 @@
-# Ziply - AI-Powered URL Shortener
+# 🚀 Ziply — AI-Powered URL Shortener
 
-Ziply is a modern, high-performance URL shortener built with Next.js 15, Drizzle ORM, and Google's Gemini AI. It goes beyond simple URL shortening by providing real-time safety checks and detailed risk analysis for every link you create.
+**Ziply** is a modern, high-performance URL shortener built with **Next.js 15**, **Drizzle ORM**, and **Google Gemini AI**.  
+It goes beyond traditional link shorteners by offering **real-time safety analysis** and **detailed risk insights** for every URL you create.
 
-## 🚀 Features
+---
 
-- **Instant URL Shortening**: Quick and easy link shortening from the homepage.
-- **Custom URL Codes**: Create branded or memorable links with custom short codes (e.g., `ziply.link/r/my-link`).
-- **AI Safety Engine**: Every URL is analyzed by Google Gemini AI and pattern-based heuristics to detect phishing, malware, and scams.
-- **Detailed Flagging Info**: If a link is flagged, users receive a clear, left-aligned explanation of the specific security risks.
-- **QR Code Generation**: Instantly generate and download sleek QR codes for any shortened link.
-- **Analytics Dashboard**: Track click counts and monitor link performance in real-time.
-- **Admin Management**: Dedicated dashboard for admins to manage all URLs, users, and safety flags.
-- **Modern Auth**: Secure authentication powered by NextAuth.js (v5 beta) with Role-Based Access Control (RBAC).
+## ✨ Key Features
 
-## 🛠️ Tech Stack
+### 🔗 Core Functionality
+- **Instant URL Shortening**: Quickly generate short links directly from the homepage.
+- **Custom Short Codes**: Create branded, memorable URLs like: `ziply.link/r/my-link`
 
-- **Framework**: [Next.js 15+](https://nextjs.org/) (with Turbopack and React 19)
-- **Database**: [PostgreSQL](https://www.postgresql.org/) (via [Neon](https://neon.tech/))
-- **ORM**: [Drizzle ORM](https://orm.drizzle.team/)
-- **Authentication**: [NextAuth.js v5](https://authjs.dev/)
-- **AI Integration**: [Google Gemini AI](https://ai.google.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [Shadcn UI](https://ui.shadcn.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
+### 🛡️ Security & Intelligence
+- **AI-Powered Safety Engine**: Every URL is analyzed using **Google Gemini AI** combined with heuristic checks to detect phishing, malware, and scam links.
+- **Detailed Risk Reports**: Flagged links include clear, structured explanations of detected threats directly in the UI.
+
+### 📊 Productivity & Insights
+- **Analytics Dashboard**: Monitor clicks and track link performance in real-time.
+- **QR Code Generation**: Instantly generate and download sleek, shareable QR codes.
+
+### 👨‍💻 Admin & Access Control
+- **Admin Dashboard**: Manage users, links, and flagged content from a centralized interface.
+- **Modern Authentication**: Secure auth powered by **NextAuth.js v5 (beta)** with **Role-Based Access Control (RBAC)**.
+
+---
+
+## 🧱 Tech Stack
+
+| Category        | Technology |
+|----------------|-----------|
+| **Framework**  | Next.js 15 (Turbopack + React 19) |
+| **Database**   | PostgreSQL (Neon) |
+| **ORM**        | Drizzle ORM |
+| **Auth**       | NextAuth.js v5 |
+| **AI Engine**  | Google Gemini AI |
+| **Styling**    | Tailwind CSS + Shadcn UI |
+| **Icons**      | Lucide React |
+
+---
 
 ## 📦 Getting Started
 
-### Prerequisites
+### ✅ Prerequisites
+Make sure you have:
+- Node.js **v20+**
+- A **PostgreSQL database** (Neon recommended)
+- A **Google AI Studio API key**
 
-- Node.js 20+
-- A PostgreSQL database (Neon recommended)
-- A Google AI Studio API Key (for Gemini)
+### ⚙️ Installation
 
-### Installation
-
-1. Clone the repository:
+1. **Clone the Repository**
    ```bash
    git clone https://github.com/heyiamantara/ziply-url-shortener.git
    cd ziply
    ```
 
-2. Install dependencies:
+2. **Install Dependencies**
    ```bash
    npm install
    ```
 
-3. Set up environment variables:
-   Create a `.env` file in the root directory and add the following:
+3. **Configure Environment Variables**
+   Create a `.env` file in the root directory:
    ```env
    DATABASE_URL="your-postgresql-url"
    AUTH_SECRET="your-auth-secret"
@@ -53,22 +69,42 @@ Ziply is a modern, high-performance URL shortener built with Next.js 15, Drizzle
    NEXT_PUBLIC_APP_URL="http://localhost:3000"
    ```
 
-4. Run the development server:
+4. **Start Development Server**
    ```bash
    npm run dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) to see your app in action.
+5. **Run the App**
+   Open your browser and visit: 👉 [http://localhost:3000](http://localhost:3000)
+
+---
 
 ## 🛡️ Safety Check System
 
-Ziply uses a dual-layer approach to ensure link safety:
+Ziply uses a dual-layer security approach to ensure link safety:
 
-1.  **AI Analysis**: Gemini analyzes the URL structure, domain age, and potential deceptive patterns to provide a detailed safety score.
-2.  **Heuristic Flags**: A fast, pattern-based system checks for risky TLDs (like `.zip`, `.click`), Punycode (IDN) deception, and direct IP addresses.
+### 1️⃣ AI-Based Analysis
+Powered by **Google Gemini AI**, it evaluates:
+- URL structure & potential deceptive patterns.
+- Domain reputation and registration age.
+- Contextual intent to provide a detailed risk explanation.
 
-Flagged links are kept in a "pending review" state and show a detailed reason to the user, helping prevent phishing and malware spread.
+### 2️⃣ Heuristic Detection
+A fast rule-based system that flags:
+- **Suspicious TLDs**: `.zip`, `.click`, `.top`, etc.
+- **Punycode (IDN)**: Spoofing attempts using international characters.
+- **Direct IP-based URLs**: Attempts to bypass domain-based security filters.
 
-## 📄 License
+### 🚨 Flag Handling
+Risky links are marked as **“Pending Review”**. Users receive a clear, detailed explanation of why the link was flagged, helping prevent the spread of phishing and malicious content.
 
-This project is open-source and available under the [MIT License](LICENSE).
+---
+
+## 💡 Why Ziply?
+Unlike traditional URL shorteners, Ziply prioritizes **security + transparency**, ensuring users not only shorten links—but also understand the risks behind them.
+
+## 🤝 Contributing
+Contributions are welcome! Feel free to fork the repo, open issues, and submit pull requests.
+
+## ⭐ Support
+If you find this project useful, consider giving it a ⭐ on GitHub!
